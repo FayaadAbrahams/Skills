@@ -1,119 +1,165 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package za.ac.cput.skills;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 /**
  *
- * @author AbelK
+ * @author AbelK and Fayaad Abrahams (218221630)
  */
-public class SomeSkills {
+public class SomeSkills extends JFrame implements ActionListener {
+
+    private JFrame frame;
+    private Font ft1;
+    private Font ft2;
 
     private JLabel lblSelectGeneralSkills;
-    private JFrame mainFrame;
-    private JPanel panelNorth, panelWest, panelEast, panelSouth, panelCenter;
-    private Font ft1;
+    private JLabel lblDescription;
 
     private JLabel lblHardSkills;
     private JPanel panelHardSkills;
-    private JCheckBox chkTroubleShoot;
-    private JCheckBox chkResearch;
-    private JCheckBox chkDataEngineering;
-    private JCheckBox chkDataManagement;
-    private JCheckBox chkDiagnostics;
-    
-    private JLabel lblErrorHardSkills;
+    private JComboBox cboHardSkills;
+    private JComboBox cboHardSkills2;
 
     private JLabel lblSoftSkills;
     private JPanel panelSoftSkills;
-    private JCheckBox chkAnalytical;
-    private JCheckBox chkGoodCom;
-    private JCheckBox chkSelfdri;
-    private JCheckBox chkProblemSolve;
-    private JCheckBox chkFlexibility;
+    private JComboBox cboSoftSkills;
+    private JComboBox cboSoftSkills2;
 
-    private JButton btnSave;
+    private JPanel panelButtons;
     private JButton btnNext;
+    private JButton btnSave;
 
     public SomeSkills() {
 
-        mainFrame = new JFrame("LinkUp Job App");
-        panelCenter = new JPanel();
-        panelNorth = new JPanel();
-        panelSouth = new JPanel();
-        
-        //Used to set the font for specific things
-        ft1 = new Font("Helvetica", Font.BOLD, 15);
+        super("LinkUp Job App");
+
+        //Creating a font for Heading + Description
+        ft1 = new Font("Arial", Font.BOLD | Font.ITALIC, 16);
+        ft2 = new Font("Arial", Font.ITALIC, 14);
 
         //The code below is basically just constructing the layout of the GUI
         lblSelectGeneralSkills = new JLabel(" Select General Skills"); //First heading
+        lblDescription = new JLabel("Please select two unique hard and soft skills.");
         lblSelectGeneralSkills.setFont(ft1);
-         
+        lblDescription.setFont(ft2);
 
         lblHardSkills = new JLabel(" Hard skills"); //Sub heading
-        panelHardSkills = new JPanel(); //Panel to for hardskills
-        chkTroubleShoot = new JCheckBox("Troubleshooting");
-        chkDataEngineering = new JCheckBox("Data Engineering");
-        chkResearch = new JCheckBox("Research");
-        chkDataManagement = new JCheckBox(" Data Management ");
-        chkDiagnostics = new JCheckBox(" Diagnostics ");
-        panelHardSkills.setLayout(new GridLayout(2, 3));//defining layout for hardskills
-        panelHardSkills.add(chkTroubleShoot);//adding skills to the panel
-        panelHardSkills.add(chkDataEngineering);
-        panelHardSkills.add(chkResearch);
-        panelHardSkills.add(chkDataManagement);
-        panelHardSkills.add(chkDiagnostics);
+        //Panel to for hardskills
+        String listOfHardSkills[] = {"Troubleshooting", "Data Engineering", "Research", "Data Management", "Diagnostics"};
+        cboHardSkills = new JComboBox(listOfHardSkills);
+        cboHardSkills.setRenderer(new PromptComboBoxRenderer("**select hard skill**"));
+        cboHardSkills.setSelectedIndex(-1);
 
-        lblSoftSkills = new JLabel(" Soft skills");//Sub heading
-        panelSoftSkills = new JPanel();//panel for softskills
-        chkAnalytical = new JCheckBox("Analytical Thinking");
-        chkGoodCom = new JCheckBox("Good Communication");
-        chkSelfdri = new JCheckBox("Self-driven");
-        chkProblemSolve = new JCheckBox("Problem-Solving");
-        chkFlexibility = new JCheckBox("Flexibility / Adaptability");
-        panelSoftSkills.setLayout(new GridLayout(2, 3));//defining layout for softskills
-        panelSoftSkills.add(chkAnalytical);//adding skills to the panel
-        panelSoftSkills.add(chkGoodCom);
-        panelSoftSkills.add(chkSelfdri);
-        panelSoftSkills.add(chkProblemSolve);
-        panelSoftSkills.add(chkFlexibility);
+        String listOfHardSkills2[] = {"Troubleshooting", "Data Engineering", "Research", "Data Management", "Diagnostics"};
+        cboHardSkills2 = new JComboBox(listOfHardSkills2);
+        cboHardSkills2.setSelectedIndex(-1);
+        cboHardSkills2.setRenderer(new PromptComboBoxRenderer("**select hard skill**"));
+
+        //Setting the panel for hard skills
+        panelHardSkills = new JPanel();
+        panelHardSkills.setLayout(new GridLayout(1, 3));
+        panelHardSkills.add(lblHardSkills);
+        panelHardSkills.add(cboHardSkills);
+        panelHardSkills.add(cboHardSkills2);
+
+        lblSoftSkills = new JLabel(" Soft skills");
+        //First ComboBox for Second Row
+        String listOfSoftSkills[] = {"Analytical Thinking", "Good Communication", "Self-driven", "Problem-Solving", "Flexibility / Adaptability"};
+        cboSoftSkills = new JComboBox(listOfSoftSkills);
+        cboSoftSkills.setSelectedIndex(-1);
+        cboSoftSkills.setRenderer(new PromptComboBoxRenderer("**select soft skill**"));
+
+        String listOfSoftSkills2[] = {"Analytical Thinking", "Good Communication", "Self-driven", "Problem-Solving", "Flexibility / Adaptability"};
+        cboSoftSkills2 = new JComboBox(listOfSoftSkills2);
+        cboSoftSkills2.setSelectedIndex(-1);
+        cboSoftSkills2.setRenderer(new PromptComboBoxRenderer("**select soft skill**"));
+
+        //Setting the panel for Soft Skills
+        panelSoftSkills = new JPanel();
+        panelSoftSkills.setLayout(new GridLayout(1, 3));//defining layout for softskills
+        panelSoftSkills.add(lblSoftSkills);
+        panelSoftSkills.add(cboSoftSkills);
+        panelSoftSkills.add(cboSoftSkills2);
 
         //Setting the buttons, to continue to the next menu
         btnNext = new JButton("Next");
         btnSave = new JButton("Save");
 
+        panelButtons = new JPanel();
+        panelButtons.setLayout(new GridLayout(1, 2));
+        panelButtons.add(btnNext);
+        panelButtons.add(btnSave);
+
+        btnNext.setBackground(Color.ORANGE);
+        btnSave.setBackground(Color.ORANGE);
+
+    }
+
+    public void runJpane() {
+        frame = new JFrame();
+        JOptionPane.showMessageDialog(frame, "Please select an actual value");
+    }
+
+    //ActionListeners for the Jbuttons
+    @Override
+    public void actionPerformed(ActionEvent e) {
+         if (e.getSource() == btnNext) {
+            if (cboHardSkills.getSelectedIndex() > -1) {
+                runJpane();
+            }
+
+        } else if (e.getSource() == btnSave) {
+            System.exit(0);
+        }
+    }
+
+    //Sets a default value for the ComboBoxes
+    class PromptComboBoxRenderer extends BasicComboBoxRenderer {
+
+        private String prompt;
+
+        //Set the text to display when no item has been selected
+        public PromptComboBoxRenderer(String prompt) {
+            this.prompt = prompt;
+
+        }
+
+        //Custom rendering to display the prompt text when no item is selected
+        public Component getListCellRendererComponent(
+                JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+            if (value == null) {
+                setText(prompt);
+
+            }
+
+            return this;
+        }
     }
 
     public void setGUI() {
 
-        panelCenter.setLayout(new GridLayout(5, 3));
-        panelNorth.setLayout(new GridLayout(1, 3));
-        panelSouth.setLayout(new GridLayout(1, 4));
+        this.setLayout(new GridLayout(5, 3, 12, 12)); //Structure of The GUI   
 
-        panelNorth.add(lblSelectGeneralSkills);
+        this.add(lblSelectGeneralSkills);
+        this.add(lblDescription);
 
-        panelCenter.add(lblHardSkills);
-        panelCenter.add(panelHardSkills);
+        this.add(panelHardSkills);
 
-        panelCenter.add(lblSoftSkills);
-        panelCenter.add(panelSoftSkills);
+        this.add(panelSoftSkills);
 
-        panelSouth.add(btnNext);
-        panelSouth.add(btnSave);
+        this.add(panelButtons);
 
-        //Setting the JFrame
-        mainFrame.setLocationRelativeTo(null);
-        mainFrame.add(panelNorth, BorderLayout.NORTH);
-        mainFrame.add(panelCenter, BorderLayout.CENTER);
-        mainFrame.add(panelSouth, BorderLayout.SOUTH);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.pack();
-        mainFrame.show();
+        //Setting the Frame
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
 
