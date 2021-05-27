@@ -89,6 +89,9 @@ public class SomeSkills extends JFrame implements ActionListener {
         btnNext = new JButton("Next");
         btnSave = new JButton("Save");
 
+        btnNext.addActionListener(this);
+        btnSave.addActionListener(this);
+
         panelButtons = new JPanel();
         panelButtons.setLayout(new GridLayout(1, 2));
         panelButtons.add(btnNext);
@@ -99,21 +102,33 @@ public class SomeSkills extends JFrame implements ActionListener {
 
     }
 
-    public void runJpane() {
+    public void runErrorJpane() {
         frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "Please select an actual value");
+        JOptionPane.showMessageDialog(frame, "Please select an actual value", "Alert", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void runCorrectJpane() {
+        frame = new JFrame();
+        JOptionPane.showMessageDialog(frame, "Now redirecting you to the next page!");
+    }
+
+    public void runSaveJpane() {
+        frame = new JFrame();
+        JOptionPane.showMessageDialog(frame, "SAVED!");
     }
 
     //ActionListeners for the Jbuttons
     @Override
     public void actionPerformed(ActionEvent e) {
-         if (e.getSource() == btnNext) {
-            if (cboHardSkills.getSelectedIndex() > -1) {
-                runJpane();
+        if (e.getSource() == btnNext) {
+            if (cboHardSkills.getSelectedIndex() <= -1 || cboHardSkills2.getSelectedIndex() <= -1 || cboSoftSkills.getSelectedIndex() <= -1 || cboSoftSkills2.getSelectedIndex() <= -1) {
+                runErrorJpane();
+            } else {
+                runCorrectJpane();
             }
 
         } else if (e.getSource() == btnSave) {
-            System.exit(0);
+            runSaveJpane();
         }
     }
 
