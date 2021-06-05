@@ -117,6 +117,11 @@ public class SomeSkills extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(frame, "SAVED!");
     }
 
+    public void runNoSaveJpane() {
+        frame = new JFrame();
+        JOptionPane.showMessageDialog(frame, "Nothing to Save");
+    }
+
     //ActionListeners for the Jbuttons
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -128,7 +133,12 @@ public class SomeSkills extends JFrame implements ActionListener {
             }
 
         } else if (e.getSource() == btnSave) {
-            runSaveJpane();
+            if (cboHardSkills.getSelectedIndex() <= -1 || cboHardSkills2.getSelectedIndex() <= -1 || cboSoftSkills.getSelectedIndex() <= -1 || cboSoftSkills2.getSelectedIndex() <= -1) {
+                runNoSaveJpane();
+            } else {
+                runSaveJpane();
+            }
+
         }
     }
 
